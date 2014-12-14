@@ -1,9 +1,9 @@
 # Scalatra sbt project #
 
-[![Build Status](https://secure.travis-ci.org/scalatra/scalatra-sbt.g8.png)](http://travis-ci.org/scalatra/scalatra-sbt.g8)
 
-
-[g8](http://github.com/n8han/giter8) template to get a Scalatra web service up and running quickly.
+[g8](http://github.com/n8han/giter8) template to get a Scalatra REST microservice up and running quickly. It includes:
+* JSON Support
+* Akka
 
 ## Use this template ##
 
@@ -11,7 +11,7 @@
 - Get the g8 template and run it:
 
 ```sh
-$ g8 scalatra/scalatra-sbt
+$ g8 nandosola/scalatra-sbt
 $ cd <name-of-app>
 $ ./sbt
 > container:start

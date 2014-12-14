@@ -1,37 +1,35 @@
 package $package$
 
+import org.json4s.{DefaultFormats, Formats, MappingException}
 import org.scalatra._
-import scalate.ScalateSupport
-import org.fusesource.scalate.{ TemplateEngine, Binding }
-import org.fusesource.scalate.layout.DefaultLayoutStrategy
-import javax.servlet.http.HttpServletRequest
-import collection.mutable
+import org.scalatra.json.JacksonJsonSupport
+import org.slf4j.LoggerFactory
 
-trait $name;format="Camel"$Stack extends ScalatraServlet with ScalateSupport {
 
-  /* wire up the precompiled templates */
-  override protected def defaultTemplatePath: List[String] = List("/WEB-INF/templates/views")
-  override protected def createTemplateEngine(config: ConfigT) = {
-    val engine = super.createTemplateEngine(config)
-    engine.layoutStrategy = new DefaultLayoutStrategy(engine,
-      TemplateEngine.templateTypes.map("/WEB-INF/templates/layouts/default." + _): _*)
-    engine.packagePrefix = "templates"
-    engine
+trait $name;format="Camel"$Stack extends ScalatraServlet with JacksonJsonSupport {
+
+  val logger =  LoggerFactory.getLogger(getClass)
+  implicit val jsonFormats: Formats = DefaultFormats.withBigDecimal
+
+  before() {
+    contentType = formats("json")
   }
-  /* end wiring up the precompiled templates */
-  
-  override protected def templateAttributes(implicit request: HttpServletRequest): mutable.Map[String, Any] = {
-    super.templateAttributes ++ mutable.Map.empty // Add extra attributes here, they need bindings in the build file
-  }
-  
 
   notFound {
-    // remove content type in case it was set through an action
-    contentType = null
-    // Try to render a ScalateTemplate if no route matched
-    findTemplate(requestPath) map { path =>
-      contentType = "text/html"
-      layoutTemplate(path)
-    } orElse serveStaticResource() getOrElse resourceNotFound()
+    haltHelper(Response(404, ""))
   }
+
+  error {
+    case e: MappingException =>
+    logger.error("Mapping exception. The request format couldn't be recognized as  valid JSON", e)
+    haltHelper(Response(400, "Couldn't parse request"))
+
+    case e: Throwable =>
+    logger.error("Unknown exception received", e)
+    haltHelper(Response(500, "Internal server error"))
+  }
+
+  def haltHelper(errorResponse: Response) =
+    halt(errorResponse.statusCode, errorResponse, Map("Connection" -> "close"))
+
 }
