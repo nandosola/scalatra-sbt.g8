@@ -1,5 +1,3 @@
-import javax.servlet.ServletContext
-
 import $package$._
 import akka.actor.{ActorSystem, Props}
 import akka.routing.SmallestMailboxPool

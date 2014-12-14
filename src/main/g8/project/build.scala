@@ -1,5 +1,4 @@
 import org.scalatra.sbt.ScalatraPlugin
-import org.scalatra.sbt._
 import sbt.Keys._
 import sbt._
 
