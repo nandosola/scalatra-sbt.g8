@@ -18,7 +18,7 @@ class MyActor extends Actor {
   val logger = Logging(system, classOf[MyActor])
 
   def receive = {
-    case "Do stuff and give me an answer" => sender ! "The answer is 42"
+    case "Do stuff and give me an answer" => sender ! Answer("42")
     case "Hey, you know what?" => println("Yeah I know... oh boy do I know")
   }
 }
