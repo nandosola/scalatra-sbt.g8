@@ -1,13 +1,13 @@
 # Scalatra sbt project #
-[g8](http://github.com/n8han/giter8) template to get a Scalatra REST microservice up and running quickly. It includes:
-- [JSON](http://www.scalatra.org/2.3/guides/formats/json.html) support with [json4s](http://json4s.org/). For input validations, use [the default way](http://www.scalatra.org/2.3/guides/formats/commands.html) or [Accord](https://github.com/wix/accord)
-- [Akka](http://www.scalatra.org/2.3/guides/async/akka.html) as a way to provide async responses and deal with external services.
-- [ScalaTest](http://www.scalatra.org/2.3/guides/testing/scalatest.html)
+[g8](http://github.com/n8han/giter8) template to get a Scalatra 2.5 REST microservice up and running quickly. It includes:
+- [JSON](http://scalatra.org/guides/2.5/formats/json.html) support with [json4s](http://json4s.org/).
+- [Akka](http://scalatra.org/guides/2.5/async/akka.html) as a way to provide async responses and deal with external services.
+- [ScalaTest](http://scalatra.org/guides/2.5/testing/scalatest.html)
 
 The config file can be found under `src/main/resources/application.conf`. It can be configured for different environments, given that the environment variable `SCALATRA_ENV` is set to match one of them.
 
 ## Use this template ##
-### sbt > 0.13.13
+### sbt >= 0.13.13
 `sbt new nandosola/scalatra-sbt.g8`
 
 ### older sbt versions
